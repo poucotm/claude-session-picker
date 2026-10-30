@@ -1,5 +1,5 @@
 ﻿# 현재 폴더에서 시작한 Claude Code 세션만 나열하고, 고른 세션을 claude -r 로 재개한다.
-# 사용법: csp [claude에 넘길 추가 인자...]   (install-claude-session-picker.ps1 로 프로필에 등록)
+# 사용법: cs [claude에 넘길 추가 인자...]   (install-claude-session-picker.ps1 로 프로필에 등록)
 #   ↑↓ 이동, Enter 재개, Esc/q 취소
 
 $cwd = (Get-Location).ProviderPath

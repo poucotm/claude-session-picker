@@ -1,4 +1,4 @@
-﻿# claude-session-picker.ps1 을 ~\.claude\scripts 에 복사하고, PowerShell 프로필에 csp 함수를 등록한다.
+﻿# claude-session-picker.ps1 을 ~\.claude\scripts 에 복사하고, PowerShell 프로필에 cs 함수를 등록한다.
 # 실행: powershell -ExecutionPolicy Bypass -File install-claude-session-picker.ps1   (claude-session-picker.ps1 과 같은 폴더에서)
 
 $name = 'claude-session-picker.ps1'
@@ -17,13 +17,13 @@ if (-not $policy -or $policy -eq 'Restricted') {
 }
 
 # 프로필 등록 ($HOME 은 실행할 때 풀리도록 작은따옴표로 둔다)
-$line = 'function csp { & "$HOME\.claude\scripts\claude-session-picker.ps1" @args }'
+$line = 'function cs { & "$HOME\.claude\scripts\claude-session-picker.ps1" @args }'
 if (-not (Test-Path -LiteralPath $PROFILE)) { New-Item -ItemType File -Force -Path $PROFILE | Out-Null }
 # 프로필의 기존 인코딩(UTF-8 BOM 이면 그대로, 아니면 시스템 기본)을 유지해서 다시 쓴다
 $bytes = [IO.File]::ReadAllBytes($PROFILE)
 $enc = if ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) { New-Object Text.UTF8Encoding $true } else { [Text.Encoding]::Default }
 $text = [IO.File]::ReadAllText($PROFILE, $enc)
-$pattern = '(?m)^[ \t]*function[ \t]+csp[ \t][^\r\n]*'
+$pattern = '(?m)^[ \t]*function[ \t]+csp?[ \t][^\r\n]*'  # 예전 이름 csp 도 cs 로 바꾼다
 $old = [regex]::Match($text, $pattern)
 if (-not $old.Success) {
     if ($text -and -not $text.EndsWith("`n")) { $text += "`r`n" }
@@ -37,4 +37,4 @@ elseif ($old.Value.Trim() -ne $line) {
 }
 else { Write-Host "프로필: 이미 등록되어 있음" }
 
-Write-Host "완료. 새 PowerShell 창에서 프로젝트 폴더로 이동한 뒤 csp 를 실행하세요."
+Write-Host "완료. 새 PowerShell 창에서 프로젝트 폴더로 이동한 뒤 cs 를 실행하세요."

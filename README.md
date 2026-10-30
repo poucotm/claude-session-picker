@@ -1,9 +1,9 @@
 # claude-session-picker
 
-A PowerShell tool that lists **only the Claude Code sessions started in the current folder** and resumes the one you pick. Command: `csp`.
+A PowerShell tool that lists **only the Claude Code sessions started in the current folder** and resumes the one you pick. Command: `cs`.
 
 The `claude -r` list sometimes leaves out older sessions or mixes in sessions from other directories.
-`csp` shows every session created in the current folder, with no age limit, and opens the selected one with `claude -r <sessionId>`.
+`cs` shows every session created in the current folder, with no age limit, and opens the selected one with `claude -r <sessionId>`.
 
 ```
  Claude Code : 이 폴더의 세션 5개  ↑↓ 이동 · Enter 재개 · Esc 취소
@@ -33,10 +33,10 @@ What the installer does:
 
 - Copies `claude-session-picker.ps1` to `%USERPROFILE%\.claude\scripts\`.
 - If the effective execution policy is `Restricted` (or undefined), sets it to `RemoteSigned` for the `CurrentUser` scope only.
-- Adds this line to your PowerShell profile (`$PROFILE`). If a `csp` function pointing elsewhere already exists, it is replaced.
+- Adds this line to your PowerShell profile (`$PROFILE`). If a `cs` function pointing elsewhere (or one under the old name `csp`) already exists, it is replaced.
 
   ```powershell
-  function csp { & "$HOME\.claude\scripts\claude-session-picker.ps1" @args }
+  function cs { & "$HOME\.claude\scripts\claude-session-picker.ps1" @args }
   ```
 
 Running it again is safe. To update, run the installer from a newer release.
@@ -47,8 +47,8 @@ PowerShell 7 (`pwsh`) has its own profile, so run the installer from `pwsh` too 
 Run it in a project folder:
 
 ```powershell
-csp
-csp --model opus   # extra arguments are passed through to claude
+cs
+cs --model opus   # extra arguments are passed through to claude
 ```
 
 | Key | Action |
