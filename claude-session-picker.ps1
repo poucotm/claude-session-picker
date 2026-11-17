@@ -134,4 +134,6 @@ finally {
     Clear-Host
 }
 
+$env:CLAUDE_CODE_DISABLE_TERMINAL_TITLE = '1'   # Claude Code 가 터미널 제목을 덮어쓰지 않게
+$host.UI.RawUI.WindowTitle = "Claude Code - [$cwd]"
 & claude -r $chosen @args
