@@ -57,6 +57,9 @@ cs --model opus   # extra arguments are passed through to claude
 | Enter | Resume the selected session (`claude -r <id>`) |
 | Esc / q | Cancel |
 
+If the folder has no sessions, it asks whether to start a new one (`Y/n`); Enter or `y` runs `claude`.
+While Claude Code runs, the terminal title stays `Claude Code - [<path>]`.
+
 ## How it works
 
 Session files (jsonl) can grow to tens of MB, so they are never read in full.

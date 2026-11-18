@@ -57,7 +57,14 @@ foreach ($s in $sessions.Values) {
 }
 
 if ($sessions.Count -eq 0) {
-    Write-Host $(if ($ko) { "이 폴더($cwd)에서 만든 세션이 없습니다." } else { "No sessions were created in this folder ($cwd)." })
+    $e = [char]27
+    Write-Host -NoNewline $(if ($ko) { "$e[96m이 폴더($cwd)에서 만든 세션이 없습니다. 새로 만들까요? (Y/n)$e[0m " } else { "$e[96mNo sessions were created in this folder ($cwd). Start a new one? (Y/n)$e[0m " })
+    $key = [Console]::ReadKey($true).Key
+    Write-Host ''
+    if ($key -notin 'Enter', 'Y') { return }  # Enter 나 y 면 새 세션, 그 밖의 키는 취소
+    $env:CLAUDE_CODE_DISABLE_TERMINAL_TITLE = '1'
+    $host.UI.RawUI.WindowTitle = "Claude Code - [$cwd]"
+    & claude @args
     return
 }
 
