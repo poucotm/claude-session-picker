@@ -33,10 +33,11 @@ What the installer does:
 
 - Copies `claude-session-picker.ps1` to `%USERPROFILE%\.claude\scripts\`.
 - If the effective execution policy is `Restricted` (or undefined), sets it to `RemoteSigned` for the `CurrentUser` scope only.
-- Adds this line to your PowerShell profile (`$PROFILE`). If a `cs` function pointing elsewhere (or one under the old name `csp`) already exists, it is replaced.
+- Adds these lines to your PowerShell profile (`$PROFILE`). `cc` is an alias of `cs`. If a `cs` or `cc` function pointing elsewhere (or one under the old name `csp`) already exists, it is replaced.
 
   ```powershell
   function cs { & "$HOME\.claude\scripts\claude-session-picker.ps1" @args }
+  function cc { & "$HOME\.claude\scripts\claude-session-picker.ps1" @args }
   ```
 
 Running it again is safe. To update, run the installer from a newer release.
@@ -47,7 +48,7 @@ PowerShell 7 (`pwsh`) has its own profile, so run the installer from `pwsh` too 
 Run it in a project folder:
 
 ```powershell
-cs
+cs                # or cc
 cs --model opus   # extra arguments are passed through to claude
 ```
 
